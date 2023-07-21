@@ -1,8 +1,14 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Image from "next/image";
+import styles from "./page.module.css";
+import { ApolloClientProvider } from "@/graphql/thegraph/apollo";
+import QueryComponent from "../components/query-component";
+
 
 export default function Home() {
   return (
+    <ApolloClientProvider>
+    <QueryComponent />
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
@@ -15,7 +21,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -91,5 +97,6 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+    </ApolloClientProvider>
+  );
 }
