@@ -11,6 +11,16 @@ import QueryComponent from "../components/query-component";
 
 
 export default function Home() {
+  const [address, setAddress] = useState("");
+
+  const handleButtonClick = () => {
+    console.log(address);
+  };
+
+  const handleInputChange = (event : any) => {
+    setAddress(event.target.value);
+  };
+
   return (
     <ApolloClientProvider>
     <QueryComponent />
