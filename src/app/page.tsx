@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from 'next/image'
@@ -5,20 +6,14 @@ import styles from './page.module.css'
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { ApolloClientProvider } from "@/graphql/thegraph/apollo";
+import QueryComponent from "../components/query-component";
 
 
 export default function Home() {
-  const [address, setAddress] = useState("");
-
-  const handleButtonClick = () => {
-    console.log(address);
-  };
-
-  const handleInputChange = (event) => {
-    setAddress(event.target.value);
-  };
   return (
-    
+    <ApolloClientProvider>
+    <QueryComponent />
     <main className={styles.main}>
       <div>
       <TextField
@@ -37,5 +32,6 @@ export default function Home() {
       </Button>
     </div>
     </main>
-  )
+    </ApolloClientProvider>
+  );
 }
