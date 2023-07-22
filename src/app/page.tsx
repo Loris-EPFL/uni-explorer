@@ -8,40 +8,52 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { ApolloClientProvider } from "@/graphql/thegraph/apollo";
 import QueryComponent from "../components/query-component";
-
+import Alert from '@mui/material/Alert';
 
 export default function Home() {
-  const [address, setAddress] = useState("");
+  const [id, setId] = useState("");
+  const [gqlInput, setGqlInput] = useState("");
+  const [error, setError] = useState("");
 
   const handleButtonClick = () => {
-    console.log(address);
+    // Check if the input is a valid number
+    if (isNaN(parseInt(id))) {
+      setError('Invalid input, please enter a valid number');
+      return;
+    }
+
+    console.log(id);
+    setError('');
+    setGqlInput(id);
   };
 
   const handleInputChange = (event : any) => {
-    setAddress(event.target.value);
+    setId(event.target.value);
   };
 
   return (
     <ApolloClientProvider>
-    <QueryComponent />
-    <main className={styles.main}>
-      <div>
-      <TextField
-        id="outlined-basic"
-        label="Address"
-        variant="outlined"
-        value={address}
-        onChange={handleInputChange}
-      />
-      <Button 
-        variant="contained" 
-        color="primary"
-        onClick={handleButtonClick}
-      >
-        Log Address
-      </Button>
-    </div>
-    </main>
+      <main className={styles.main}>
+        <div>
+          <TextField
+            id="outlined-basic"
+            label="NFT ID"
+            variant="outlined"
+            value={id}
+            onChange={handleInputChange}
+          />
+          <Button 
+            variant="contained" 
+            color="primary"
+            onClick={handleButtonClick}
+          >
+            Log Address
+          </Button>
+          {error && <Alert severity="error">{error}</Alert>}
+          {gqlInput && !error ? <QueryComponent id={gqlInput}/> : null}
+        </div>
+      </main>
     </ApolloClientProvider>
   );
 }
+
