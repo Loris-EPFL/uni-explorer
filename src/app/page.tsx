@@ -37,18 +37,27 @@ export default function Home() {
     <ApolloExample>
       
       <main className={styles.main}>
-        <Grid  item xs 
-                                                display="flex"
-                                                justifyContent={'flex-start'}
-                                                alignItems={'flex-start'}>
+        <Grid  container
+                                                
+                                                spacing={4}
+                                                >
+        <Grid item display="flex"
+                  xs={6}
+                   justifyContent={'flex-end'}
+                    alignItems={'center'}>
           <TextField
             id="outlined-basic"
             label="NFT ID"
             variant="outlined"
             value={id}
             onChange={handleInputChange}
-            
+sx={{borderBlockColor: '#ff0000'}}            
           />
+        </Grid>
+        <Grid item display="flex"
+                  xs={6}
+                   justifyContent={'flex-start'}
+                    alignItems={'center'}>
           <Button 
             
             variant="contained" 
@@ -57,8 +66,14 @@ export default function Home() {
           >
             Log Address
           </Button>
+        </Grid>
+        <Grid item display="flex"
+                  xs={12}
+                   justifyContent={'center'}
+                    alignItems={'center'} >
           {error && <Alert severity="error">{error}</Alert>}
           {gqlInput && !error ? <QueryComponent id={gqlInput}/> : null}
+        </Grid>
         </Grid>
       </main>
       </ApolloExample>
