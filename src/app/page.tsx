@@ -1,14 +1,13 @@
-
 "use client"
 
-import Image from 'next/image'
 import styles from './page.module.css'
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { ApolloClientProvider } from "@/graphql/thegraph/apollo";
+//import { ApolloClientProvider } from "@/graphql/thegraph/apollo";
 import QueryComponent from "../components/query-component";
 import Alert from '@mui/material/Alert';
+import ApolloExample from "@/graphql/thegraph/apollo";
 
 export default function Home() {
   const [id, setId] = useState("");
@@ -32,7 +31,7 @@ export default function Home() {
   };
 
   return (
-    <ApolloClientProvider>
+    <ApolloExample>
       <main className={styles.main}>
         <div>
           <TextField
@@ -53,7 +52,7 @@ export default function Home() {
           {gqlInput && !error ? <QueryComponent id={gqlInput}/> : null}
         </div>
       </main>
-    </ApolloClientProvider>
+    </ApolloExample>
   );
 }
 
