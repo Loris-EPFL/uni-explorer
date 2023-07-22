@@ -38,9 +38,9 @@ export default function Home() {
       
       <main className={styles.main}>
         <Grid  container
-                                                
-                                                spacing={4}
-                                                >
+              spacing={4}
+              marginTop={11}
+>
         <Grid item display="flex"
                   xs={6}
                    justifyContent={'flex-end'}

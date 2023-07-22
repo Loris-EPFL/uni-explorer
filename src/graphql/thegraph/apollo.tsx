@@ -11,7 +11,7 @@ import { NormalizedCacheObject } from "@apollo/client";
 import { Select, MenuItem,SelectChangeEvent, Typography } from "@mui/material";
 import { polygon, mainnet, celo, avalanche, Chain } from "viem/chains";
 import {Box, Grid, AppBar, Toolbar, IconButton, CircularProgress} from "@mui/material";
-import logo from '../../images/logo.jpg'
+import logo from '../../images/logo.png'
 import Image from "next/image";
 
 
@@ -66,8 +66,8 @@ const ApolloExample: React.FC<ApolloExampleProps> = ({ children }) => {
 
   return (
     <>
-    <Box flexGrow={1} padding={8}>
-        <AppBar position="fixed">
+    <Box flexGrow={1}  sx={{background : 'radial-gradient(circle, rgba(245,246,252,1)  0%, rgba(200,168,255,0.5) 60%, rgba(130,71,229,0.2) 90%)'}}>
+        <AppBar position="fixed" sx={{background : 'radial-gradient(circle, rgba(245,246,252,1)  0%, rgba(200,168,255,0.5) 60%, rgba(130,71,229,0.2) 90%)'}}>
           <Toolbar>
             <IconButton
               size="large"
@@ -133,7 +133,7 @@ export function ApolloClientProvider({
   if (!client) {
     return (
     <div>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} marginTop={20} sx={{background : 'radial-gradient(circle, rgba(245,246,252,1)  0%, rgba(200,168,255,0.5) 60%, rgba(130,71,229,0.2) 90%)'}}>
         <Grid item xs={6} display="flex" alignItems={'center'} justifyContent={'flex-end'}>
           <CircularProgress />
         </Grid>
