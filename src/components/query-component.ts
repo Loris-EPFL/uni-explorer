@@ -5,7 +5,7 @@ import { gql, useQuery } from '@apollo/client';
 const GET_OWNER = gql`
   query GetOwner {
     
-        position(id: "975071") {
+        position(id: "1120") {
           owner
         }
       }
