@@ -10,7 +10,6 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { NormalizedCacheObject } from "@apollo/client";
 import { Select, MenuItem,SelectChangeEvent } from "@mui/material";
 import { polygon, mainnet, celo, avalanche, Chain } from "viem/chains";
-import Header from "@/components/header";
 import {Box, Grid, AppBar, Toolbar, IconButton} from "@mui/material";
 import logo from '../../images/logo.jpg'
 import Image from "next/image";
