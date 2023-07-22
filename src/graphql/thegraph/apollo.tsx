@@ -8,9 +8,9 @@ import {
 } from "@apollo/client";
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { NormalizedCacheObject } from "@apollo/client";
-import { Select, MenuItem,SelectChangeEvent } from "@mui/material";
+import { Select, MenuItem,SelectChangeEvent, Typography } from "@mui/material";
 import { polygon, mainnet, celo, avalanche, Chain } from "viem/chains";
-import {Box, Grid, AppBar, Toolbar, IconButton} from "@mui/material";
+import {Box, Grid, AppBar, Toolbar, IconButton, CircularProgress} from "@mui/material";
 import logo from '../../images/logo.jpg'
 import Image from "next/image";
 
@@ -66,7 +66,7 @@ const ApolloExample: React.FC<ApolloExampleProps> = ({ children }) => {
 
   return (
     <>
-    <Box flexGrow={1} padding={5}>
+    <Box flexGrow={1} padding={8}>
         <AppBar position="fixed">
           <Toolbar>
             <IconButton
@@ -127,7 +127,20 @@ export function ApolloClientProvider({
   client,
 }: ApolloClientProviderProps) {
   if (!client) {
-    return <div>Loading...</div>;
+    return (
+    <div>
+      <Grid container spacing={4}>
+        <Grid item xs={6} display="flex" alignItems={'center'} justifyContent={'flex-end'}>
+          <CircularProgress />
+        </Grid>
+        <Grid item xs={6} display="flex" alignItems={'center'} justifyContent={'flex-start'}>
+          <Typography  variant="h4" justifyContent={'center'}>
+                      Loading...
+          </Typography>
+        </Grid>
+      </Grid>
+      {children}
+    </div>);
   }
 
   return (
