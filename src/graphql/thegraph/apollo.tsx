@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,6 +8,8 @@ import {
 } from "@apollo/client";
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { NormalizedCacheObject } from "@apollo/client";
+import { Select, MenuItem,SelectChangeEvent } from "@mui/material";
+import { polygon, mainnet, celo, avalanche, Chain } from "viem/chains";
 
 
 type ApolloExampleProps = {
@@ -15,7 +19,7 @@ type ApolloExampleProps = {
 const ApolloExample: React.FC<ApolloExampleProps> = ({ children }) => {
   const [client, setClient] =
     useState<ApolloClient<NormalizedCacheObject> | null>(null);
-  const [chain, setChain] = useState<string>("polygon");
+  const [chain, setChain] = useState<string>("ethereum");
 
   useEffect(() => {
     let newClient: ApolloClient<NormalizedCacheObject> | null = null;
@@ -52,14 +56,28 @@ const ApolloExample: React.FC<ApolloExampleProps> = ({ children }) => {
     setChain(event.target.value);
   };
 
+  const handleChange = (event: SelectChangeEvent) => {
+    setChain(event.target.value as string);
+  };
+
   return (
     <div className="chain">
-      <select name="" id="" value={chain} onChange={handleChainChange}>
-        <option value="polygon">Polygon</option>
-        <option value="ethereum">Ethereum</option>
-        <option value="celo">Celo</option>
-        <option value="avalanche">Avalanche</option>
-      </select>
+      
+
+      <Select
+    labelId=""
+    id=""
+    value={chain}
+    label="ethereum"
+    onChange={ handleChange}
+    sx={{marginTop : 10}}
+  >
+    <MenuItem value={"polygon"}>Polygon</MenuItem>
+    <MenuItem value={"ethereum"}>Ethereum</MenuItem>
+    <MenuItem value={"celo"}>Celo</MenuItem>
+    <MenuItem value={"avalanche"}>Avalanche</MenuItem>
+
+    </Select>
       <ApolloClientProvider client={client}>{children}</ApolloClientProvider>
     </div>
   );
