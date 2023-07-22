@@ -1,5 +1,15 @@
 import { gql, useQuery } from '@apollo/client';
 import { Box, Typography } from '@mui/material';
+import {Chart, DataItem} from '../components/chart';
+
+
+// Sample data
+const chartTest : DataItem[] = [
+  { date: '2021', principal: 4000, fees: 4500},
+  { date: '2022', principal: 3000, fees: 4800 },
+  { date: '2023', principal: 2000, fees: 9800},
+  { date: '2024', principal: 2000, fees: 33333},
+];
 
 const GET_OWNER = gql`
   query GetOwner($id: String!) {
@@ -29,10 +39,18 @@ export default function QueryComponent({ id }: QueryComponentProps) {
       <Typography variant="h4" gutterBottom>
         Success
       </Typography>
-      <Box sx={{ bgcolor: 'grey.500', p: 2, borderRadius: 2, color: 'white' }}>
+      <Box 
+        sx={{ 
+          p: 2, 
+          borderRadius: 2, 
+          color: 'black',
+          bgcolor: 'white'
+        }}
+      >
         <Typography variant="body1">
           {dataString}
         </Typography>
+        <Chart data={chartTest}/>
       </Box>
     </Box>
   );
