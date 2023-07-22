@@ -79,8 +79,14 @@ const ApolloExample: React.FC<ApolloExampleProps> = ({ children }) => {
             >
               <Image src={logo} width={50} alt="" />
             </IconButton>
-            <Grid container  spacing={0}>
-                <Grid item xs={12} container flexGrow={1} spacing={4} justifyContent={'flex-end'}>
+            <Grid container  spacing={0} >
+                  <Grid item  display="flex" justifyContent={'flex-start'} alignItems={'center'} >
+                    <Typography variant="h4"  >
+                            UniExplorer
+                        </Typography>
+                    </Grid>
+                  </Grid>
+                    
                     
                     <Grid item  display="flex" justifyContent={'flex-end'} alignItems={'center'} >
                         <div className="chain">
@@ -103,8 +109,6 @@ const ApolloExample: React.FC<ApolloExampleProps> = ({ children }) => {
       
                         </div>
                   </Grid>   
-                </Grid>          
-            </Grid>   
           </Toolbar>
         </AppBar>
       </Box>

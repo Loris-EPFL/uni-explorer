@@ -51,7 +51,8 @@ export default function Home() {
             variant="outlined"
             value={id}
             onChange={handleInputChange}
-sx={{borderBlockColor: '#ff0000'}}            
+            sx={{
+              border: '10px white'}}            
           />
         </Grid>
         <Grid item display="flex"
