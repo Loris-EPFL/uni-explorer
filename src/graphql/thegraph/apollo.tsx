@@ -10,6 +10,11 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { NormalizedCacheObject } from "@apollo/client";
 import { Select, MenuItem,SelectChangeEvent } from "@mui/material";
 import { polygon, mainnet, celo, avalanche, Chain } from "viem/chains";
+import Header from "@/components/header";
+import {Box, Grid, AppBar, Toolbar, IconButton} from "@mui/material";
+import logo from '../../images/logo.jpg'
+import Image from "next/image";
+
 
 
 type ApolloExampleProps = {
@@ -61,25 +66,53 @@ const ApolloExample: React.FC<ApolloExampleProps> = ({ children }) => {
   };
 
   return (
-    <div className="chain">
+    <>
+    <Box flexGrow={1} padding={5}>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{mr: 2}}
+              
+            >
+              <Image src={logo} width={50} alt="" />
+            </IconButton>
+            <Grid container  spacing={0}>
+                <Grid item xs={12} container flexGrow={1} spacing={4} justifyContent={'flex-end'}>
+                    
+                    <Grid item  display="flex" justifyContent={'flex-end'} alignItems={'center'} >
+                        <div className="chain">
+
+
+                          <Select
+                        labelId=""
+                        id=""
+                        value={chain}
+                        label="ethereum"
+                        onChange={ handleChange}
+                        
+                      >
+                        <MenuItem value={"polygon"}>Polygon</MenuItem>
+                        <MenuItem value={"ethereum"}>Ethereum</MenuItem>
+                        <MenuItem value={"celo"}>Celo</MenuItem>
+                        <MenuItem value={"avalanche"}>Avalanche</MenuItem>
+
+                        </Select>
       
-
-      <Select
-    labelId=""
-    id=""
-    value={chain}
-    label="ethereum"
-    onChange={ handleChange}
-    sx={{marginTop : 10}}
-  >
-    <MenuItem value={"polygon"}>Polygon</MenuItem>
-    <MenuItem value={"ethereum"}>Ethereum</MenuItem>
-    <MenuItem value={"celo"}>Celo</MenuItem>
-    <MenuItem value={"avalanche"}>Avalanche</MenuItem>
-
-    </Select>
-      <ApolloClientProvider client={client}>{children}</ApolloClientProvider>
-    </div>
+                        </div>
+                  </Grid>   
+                </Grid>          
+            </Grid>   
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Box >
+        <ApolloClientProvider client={client}>{children}</ApolloClientProvider>
+      </Box>
+      </>
   );
 };
 
@@ -98,5 +131,9 @@ export function ApolloClientProvider({
     return <div>Loading...</div>;
   }
 
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return (
+    <>
+    <ApolloProvider client={client}>{children}</ApolloProvider>
+    </>)
+
 }

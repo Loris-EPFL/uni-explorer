@@ -34,7 +34,6 @@ export default function Home() {
 
   return (
     <>
-    <Header/>
     <ApolloExample>
       
       <main className={styles.main}>
