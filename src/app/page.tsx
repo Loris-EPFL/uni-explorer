@@ -8,7 +8,6 @@ import TextField from '@mui/material/TextField';
 import QueryComponent from "../components/query-component";
 import Alert from '@mui/material/Alert';
 import ApolloExample from "@/graphql/thegraph/apollo";
-import Header from '@/components/header';
 import { Grid } from '@mui/material';
 
 export default function Home() {
