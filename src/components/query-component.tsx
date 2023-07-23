@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, radioClasses } from '@mui/material';
 import { Chart, DataItem } from '../components/chart';
 import { Position, Pool, TickMath } from '@uniswap/v3-sdk'
 import { Token, BigintIsh } from '@uniswap/sdk-core'
@@ -112,7 +112,7 @@ export default function QueryComponent({ id }: QueryComponentProps) {
 
   console.log("liquidity :" + data2.position.liquidity)
   return (
-    <Box>
+    <Box >
       <Typography>pool : {data2.position.token0.symbol}/{data2.position.token1.symbol}, {feeTier / 10000}%</Typography>
       <Typography>days active : {(data._meta.block.timestamp - parseInt(data.position.transaction.timestamp)) / 3600 / 24}</Typography>
       <PriceFeed
@@ -166,7 +166,7 @@ function PriceFeed({ id, date_lte, date_gte, feeTier, liquidity, token0, token1,
   });
 
   return (
-    <Box sx={{ p: 2, bgcolor: 'white' }}>
+    <Box sx={{ p: 2, bgcolor: 'white', borderRadius: 2 }}>
       <Typography variant="h4" gutterBottom>
         Success
       </Typography>
