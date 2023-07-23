@@ -1,8 +1,10 @@
 import { gql, useQuery } from '@apollo/client';
 import { Box, Typography } from '@mui/material';
 import { Chart, DataItem } from '../components/chart';
-import { Position, Pool } from '@uniswap/v3-sdk'
+import { Position, Pool, TickMath } from '@uniswap/v3-sdk'
 import { Token, BigintIsh } from '@uniswap/sdk-core'
+import JSBI from 'jsbi'
+
 
 const CHAIN_ID = 137; // Polygon
 
@@ -110,7 +112,7 @@ export default function QueryComponent({ id }: QueryComponentProps) {
   const token0 = new Token(CHAIN_ID, data2.position.token0.id, parseInt(data2.position.token0.decimals), data2.position.token0.symbol, data2.position.token0.name);
   const token1 = new Token(CHAIN_ID, data2.position.token1.id, parseInt(data2.position.token1.decimals), data2.position.token1.symbol, data2.position.token1.name);
 
-
+  console.log("liquidity :" + data2.position.liquidity)
   return (
     <Box>
       <Typography>pool : {data2.position.token0.symbol}/{data2.position.token1.symbol}, {feeTier / 10000}%</Typography>
@@ -123,8 +125,8 @@ export default function QueryComponent({ id }: QueryComponentProps) {
         liquidity={data2.position.liquidity as BigintIsh}
         token0={token0}
         token1={token1}
-        tickLower={data2.position.tickLower.tickIdx}
-        tickUpper={data2.position.tickUpper.tickIdx} ></PriceFeed>
+        tickLower={parseInt(data2.position.tickLower.tickIdx)}
+        tickUpper={parseInt(data2.position.tickUpper.tickIdx)} ></PriceFeed>
     </Box>
   );
 }
@@ -157,8 +159,13 @@ function PriceFeed({ id, date_lte, date_gte, feeTier, liquidity, token0, token1,
   const positionValueHistory = getPositionValue(data, token0, token1, feeTier, liquidity, tickLower, tickUpper)
   console.log('values : ' + positionValueHistory)
 
-  const dataString = JSON.stringify(data, null, 2);
-  console.log(dataString)
+  const chart = positionValueHistory.map((principal: any, index: any) => {
+    return {
+      date: 'day',
+      principal,
+      fees: 0
+    };
+  });
 
   return (
     <Box sx={{ p: 2, bgcolor: 'white' }}>
@@ -173,10 +180,7 @@ function PriceFeed({ id, date_lte, date_gte, feeTier, liquidity, token0, token1,
           bgcolor: 'white'
         }}
       >
-        <Typography variant="body1">
-          {dataString}
-        </Typography>
-        <Chart data={chartTest} />
+        <Chart data={chart} />
       </Box>
     </Box>
   );
@@ -188,21 +192,26 @@ function getPositionValue(data: any, token0: Token, token1: Token, fee: number, 
     const sqrtPriceX96 = item.sqrtPrice as BigintIsh;
     const poolLiquidity = item.liquidity as BigintIsh;
     const tick = parseInt(item.tick);
-    console.log(tick)
+
+
+
+
+    const sqrtRatioX96 = TickMath.getSqrtRatioAtTick(tick);
     return new Pool(
       token0,
       token1,
       //fee,
       fee,
-      //sqrtPriceX96,
-      sqrtPriceX96,
+      sqrtRatioX96.toString(),
       //poolLiquidity,
-      poolLiquidity,
+      poolLiquidity.toString(),
       //tick
       tick
 
     );
   })
+
+  console.log(poolHistory)
 
   if (tickLower > tickUpper) {
     let temp = tickLower;
@@ -213,6 +222,7 @@ function getPositionValue(data: any, token0: Token, token1: Token, fee: number, 
 
   const positionHistory = poolHistory.map((pool: any) => {
     //console.log(pool, positionLiquidity, tickLower, tickUpper)
+    //console.log("pool tick : ", pool.tickCurrent)
     return new Position({ pool, liquidity: positionLiquidity, tickLower, tickUpper })
   })
 
@@ -227,9 +237,9 @@ function getPositionValue(data: any, token0: Token, token1: Token, fee: number, 
   const positionValue = positionHistory.map((position: any, index: number) => {
     const token0Price = token0PriceHistory[index];
     const token1Price = token1PriceHistory[index];
-    console.log(position.amount0)
-    //const token1Value = parseFloat(position.amount1.toSignificant(6)) * token1Price;
-    //return token0Value + token1Value;
+    const token0Value = parseFloat(position.amount0.toSignificant(6)) * token0Price;
+    const token1Value = parseFloat(position.amount1.toSignificant(6)) * token1Price;
+    return token0Value + token1Value;
   })
 
   return positionValue;
