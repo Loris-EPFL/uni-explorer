@@ -3,8 +3,6 @@ import { Box, Typography } from '@mui/material';
 import { Chart, DataItem } from '../components/chart';
 import { Position, Pool, TickMath } from '@uniswap/v3-sdk'
 import { Token, BigintIsh } from '@uniswap/sdk-core'
-import JSBI from 'jsbi'
-
 
 const CHAIN_ID = 137; // Polygon
 
