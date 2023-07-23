@@ -114,7 +114,7 @@ export default function QueryComponent({ id }: QueryComponentProps) {
   return (
     <Box >
       <Typography>pool : {data2.position.token0.symbol}/{data2.position.token1.symbol}, {feeTier / 10000}%</Typography>
-      <Typography>days active : {(data._meta.block.timestamp - parseInt(data.position.transaction.timestamp)) / 3600 / 24}</Typography>
+      <Typography>days active : {Math.floor((data._meta.block.timestamp - parseInt(data.position.transaction.timestamp)) / 3600 / 24)}</Typography>
       <PriceFeed
         id={id}
         date_lte={data._meta.block.timestamp}
