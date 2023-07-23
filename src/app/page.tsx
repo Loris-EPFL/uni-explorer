@@ -26,58 +26,59 @@ export default function Home() {
     setGqlInput(id);
   };
 
-  const handleInputChange = (event : any) => {
+  const handleInputChange = (event: any) => {
     setId(event.target.value);
   };
 
   return (
     <>
-    <ApolloExample>
-      
-      <main className={styles.main}>
-        <Grid  container
-              spacing={4}
-              marginTop={11}
->
-        <Grid item display="flex"
-                  xs={6}
-                   justifyContent={'flex-end'}
-                    alignItems={'center'}>
-          <TextField
-            id="outlined-basic"
-            label="NFT ID"
-            variant="outlined"
-            value={id}
-            onChange={handleInputChange}
-            sx={{
-              border: '10px white'}}            
-          />
-        </Grid>
-        <Grid item display="flex"
-                  xs={6}
-                   justifyContent={'flex-start'}
-                    alignItems={'center'}>
-          <Button 
-            
-            variant="contained" 
-            color="primary"
-            onClick={handleButtonClick}
+      <ApolloExample>
+
+        <main className={styles.main}>
+          <Grid container
+            spacing={4}
+            marginTop={11}
           >
-            Log Address
-          </Button>
-        </Grid>
-        <Grid item display="flex"
-                  xs={12}
-                   justifyContent={'center'}
-                    alignItems={'center'} >
-          {error && <Alert severity="error">{error}</Alert>}
-          {gqlInput && !error ? <QueryComponent id={gqlInput}/> : null}
-        </Grid>
-        </Grid>
-      </main>
+            <Grid item display="flex"
+              xs={6}
+              justifyContent={'flex-end'}
+              alignItems={'center'}>
+              <TextField
+                id="outlined-basic"
+                label="NFT ID"
+                variant="outlined"
+                value={id}
+                onChange={handleInputChange}
+                sx={{
+                  border: '10px white'
+                }}
+              />
+            </Grid>
+            <Grid item display="flex"
+              xs={6}
+              justifyContent={'flex-start'}
+              alignItems={'center'}>
+              <Button
+
+                variant="contained"
+                color="primary"
+                onClick={handleButtonClick}
+              >
+                Check Position
+              </Button>
+            </Grid>
+            <Grid item display="flex"
+              xs={12}
+              justifyContent={'center'}
+              alignItems={'center'} >
+              {error && <Alert severity="error">{error}</Alert>}
+              {gqlInput && !error ? <QueryComponent id={gqlInput} /> : null}
+            </Grid>
+          </Grid>
+        </main>
       </ApolloExample>
-      
-      </>
+
+    </>
   );
 }
 
