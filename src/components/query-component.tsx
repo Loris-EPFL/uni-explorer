@@ -154,14 +154,15 @@ function PriceFeed({ id, date_lte, date_gte, feeTier, liquidity, token0, token1,
   //const pool = new Pool(token0, token1, feeTier, sqrtRatioX96, liquidity, tickCurrent);
   //const position = new Position({ pool: pool, liquidity: data.position.liquidity, tickLower: tickLower, tickUpper: tickUpper });
 
-  const [positionValueHistory, dates] = getPositionValue(data, token0, token1, feeTier, liquidity, tickLower, tickUpper)
+  const [positionValueHistory, dates, hodlStratHistory] = getPositionValue(data, token0, token1, feeTier, liquidity, tickLower, tickUpper)
 
   const chart = positionValueHistory.map((principal: any, index: any) => {
     let date = new Date(dates[index] * 1000)
     return {
       date: date.toLocaleDateString(),
       principal,
-      fees: 0
+      fees: 0,
+      hodlStrat: hodlStratHistory[index]
     };
   });
 
@@ -239,10 +240,20 @@ function getPositionValue(data: any, token0: Token, token1: Token, fee: number, 
     const token1Value = parseFloat(position.amount1.toSignificant(6)) * token1Price;
     return token0Value + token1Value;
   })
+  const initAmount0 = parseFloat(positionHistory[0].amount0.toSignificant(6));
+  const initAmount1 = parseFloat(positionHistory[0].amount1.toSignificant(6));
+
+  const hodlStratHistory = positionHistory.map((position: any, index: number) => {
+    const token0Price = token0PriceHistory[index];
+    const token1Price = token1PriceHistory[index];
+    const token0Value = initAmount0 * token0Price;
+    const token1Value = initAmount1 * token1Price;
+    return token0Value + token1Value;
+  })
 
   const dates = data.position.token0.tokenDayData.map((item: any) => {
     return (item.date as BigintIsh);
   })
 
-  return [positionValue, dates];
+  return [positionValue, dates, hodlStratHistory];
 }

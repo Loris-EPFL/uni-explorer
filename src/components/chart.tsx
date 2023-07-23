@@ -28,7 +28,8 @@ export const Chart: React.FC<ChartProps> = ({ data }) => (
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="principal" stroke="#FFC0CB" activeDot={{ r: 8 }} /> // Pink line
-    <Line type="monotone" dataKey="fees" stroke="#0000FF" /> // Blue line
+    <Line type="monotone" dataKey="principal" stroke="#FF0000" activeDot={{ r: 8 }} /> // Pink line
+    {/* <Line type="monotone" dataKey="fees" stroke="#0000FF" /> // Blue line */}
+    <Line type="monotone" dataKey="hodlStrat" stroke="#000000" /> // Black line
   </LineChart>
 );
