@@ -4,7 +4,6 @@ import styles from './page.module.css'
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-//import { ApolloClientProvider } from "@/graphql/thegraph/apollo";
 import QueryComponent from "../components/query-component";
 import Alert from '@mui/material/Alert';
 import ApolloExample from "@/graphql/thegraph/apollo";
