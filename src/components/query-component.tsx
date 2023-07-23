@@ -156,12 +156,12 @@ function PriceFeed({ id, date_lte, date_gte, feeTier, liquidity, token0, token1,
   //const pool = new Pool(token0, token1, feeTier, sqrtRatioX96, liquidity, tickCurrent);
   //const position = new Position({ pool: pool, liquidity: data.position.liquidity, tickLower: tickLower, tickUpper: tickUpper });
 
-  const positionValueHistory = getPositionValue(data, token0, token1, feeTier, liquidity, tickLower, tickUpper)
-  console.log('values : ' + positionValueHistory)
+  const [positionValueHistory, dates] = getPositionValue(data, token0, token1, feeTier, liquidity, tickLower, tickUpper)
 
   const chart = positionValueHistory.map((principal: any, index: any) => {
+    let date = new Date(dates[index] * 1000)
     return {
-      date: 'day',
+      date: date.toLocaleDateString(),
       principal,
       fees: 0
     };
@@ -242,5 +242,9 @@ function getPositionValue(data: any, token0: Token, token1: Token, fee: number, 
     return token0Value + token1Value;
   })
 
-  return positionValue;
+  const dates = data.position.token0.tokenDayData.map((item: any) => {
+    return (item.date as BigintIsh);
+  })
+
+  return [positionValue, dates];
 }
