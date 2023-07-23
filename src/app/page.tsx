@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import QueryComponent from "../components/query-component";
 import Alert from '@mui/material/Alert';
 import ApolloExample from "@/graphql/thegraph/apollo";
+import { Grid } from '@mui/material';
 
 export default function Home() {
   const [id, setId] = useState("");
@@ -30,28 +31,53 @@ export default function Home() {
   };
 
   return (
+    <>
     <ApolloExample>
+      
       <main className={styles.main}>
-        <div>
+        <Grid  container
+              spacing={4}
+              marginTop={11}
+>
+        <Grid item display="flex"
+                  xs={6}
+                   justifyContent={'flex-end'}
+                    alignItems={'center'}>
           <TextField
             id="outlined-basic"
             label="NFT ID"
             variant="outlined"
             value={id}
             onChange={handleInputChange}
+            sx={{
+              border: '10px white'}}            
           />
+        </Grid>
+        <Grid item display="flex"
+                  xs={6}
+                   justifyContent={'flex-start'}
+                    alignItems={'center'}>
           <Button 
+            
             variant="contained" 
             color="primary"
             onClick={handleButtonClick}
           >
             Log Address
           </Button>
+        </Grid>
+        <Grid item display="flex"
+                  xs={12}
+                   justifyContent={'center'}
+                    alignItems={'center'} >
           {error && <Alert severity="error">{error}</Alert>}
           {gqlInput && !error ? <QueryComponent id={gqlInput}/> : null}
-        </div>
+        </Grid>
+        </Grid>
       </main>
-    </ApolloExample>
+      </ApolloExample>
+      
+      </>
   );
 }
 
